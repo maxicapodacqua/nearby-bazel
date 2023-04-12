@@ -1,6 +1,8 @@
 # Nearby (Bazel)
 Coding practice using Bazel to create a simple REST API
 
+https://github.com/kriscfoster/multi-language-bazel-monorepo
+
 # TODOs
 - [ ] Create bazel setup with gazelle
 - [ ] Create functional test (maybe run a postman collection?)

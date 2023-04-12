@@ -7,7 +7,7 @@ go_library(
     visibility = ["//golang:__subpackages__"],
     deps = [
         "//golang/internal/config",
-        "//golang/internal/database/sqlite",
+        "//golang/internal/database/mysql",
         "//golang/internal/router",
     ],
 )

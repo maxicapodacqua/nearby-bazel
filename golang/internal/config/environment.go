@@ -13,8 +13,8 @@ const (
 	Port        = "PORT"
 	DefaultPort = "8080"
 
-	SQLiteDNS        = "SQLITE_DNS"
-	DefaultSQLiteDNS = "data/db.sqlite"
+	SQLDNS        = "SQL_DNS"
+	DefaultSQLDNS = "root:root@/nearby"
 )
 
 func setDefault(key, val string) {
@@ -31,7 +31,7 @@ func SetWithDefaults() {
 	if _, ok := os.LookupEnv(Port); !ok {
 		setDefault(Port, DefaultPort)
 	}
-	if _, ok := os.LookupEnv(SQLiteDNS); !ok {
-		setDefault(SQLiteDNS, DefaultSQLiteDNS)
+	if _, ok := os.LookupEnv(SQLDNS); !ok {
+		setDefault(SQLDNS, DefaultSQLDNS)
 	}
 }

@@ -5,7 +5,7 @@ package server
 
 import (
 	"github.com/maxicapodacqua/nearby-bazel/golang/internal/config"
-	"github.com/maxicapodacqua/nearby-bazel/golang/internal/database/sqlite"
+	"github.com/maxicapodacqua/nearby-bazel/golang/internal/database/mysql"
 	"github.com/maxicapodacqua/nearby-bazel/golang/internal/router"
 	"log"
 	"net/http"
@@ -30,7 +30,7 @@ func configureRoute(path string, handler router.HandlerFunc) {
 func Start() {
 	log.Printf("Starting server\n")
 
-	db := sqlite.Connect()
+	db := mysql.Connect()
 
 	configureRoute(router.Ping())
 	configureRoute(router.Health(db))

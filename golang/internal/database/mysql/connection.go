@@ -1,16 +1,16 @@
-package sqlite
+package mysql
 
 import (
 	"database/sql"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/maxicapodacqua/nearby-bazel/golang/internal/config"
 	"log"
-	_ "modernc.org/sqlite"
 	"os"
 )
 
 func Connect() *sql.DB {
-	log.Printf("Connecting to sqlite database\n")
-	db, err := sql.Open("sqlite", os.Getenv(config.SQLiteDNS))
+	log.Printf("Connecting to mysql database\n")
+	db, err := sql.Open("mysql", os.Getenv(config.SQLDNS))
 	if err != nil {
 		log.Fatal(err)
 	}
