@@ -1,0 +1,1 @@
+console.log('Some log from typescript');

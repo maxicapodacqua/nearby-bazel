@@ -1,0 +1,20 @@
+load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
+load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_project")
+
+nodejs_binary(
+    name = "nearby",
+    data = [],
+    entry_point = ":index.js",
+)
+
+ts_config(
+    name = "config",
+    src = "tsconfig.json",
+    deps = [],
+)
+
+ts_project(
+    name = "nearby_lib",
+    srcs = glob(["*.ts"]),
+    deps = [],
+)

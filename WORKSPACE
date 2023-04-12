@@ -32,3 +32,31 @@ go_rules_dependencies()
 go_register_toolchains(version = "1.19.3")
 
 gazelle_dependencies()
+
+
+### NodeJS Setup
+
+http_archive(
+    name = "build_bazel_rules_nodejs",
+    sha256 = "c29944ba9b0b430aadcaf3bf2570fece6fc5ebfb76df145c6cdad40d65c20811",
+    urls = ["https://github.com/bazelbuild/rules_nodejs/releases/download/5.7.0/rules_nodejs-5.7.0.tar.gz"],
+)
+
+
+load("@build_bazel_rules_nodejs//:repositories.bzl", "build_bazel_rules_nodejs_dependencies")
+
+build_bazel_rules_nodejs_dependencies()
+
+# fetches nodejs, npm, and yarn
+load("@build_bazel_rules_nodejs//:index.bzl", "node_repositories")
+
+node_repositories()
+
+load("@build_bazel_rules_nodejs//:index.bzl", "yarn_install")
+
+# bazel run @yarn//:yarn
+yarn_install(
+    name = "npm",
+    package_json = "//:package.json",
+    yarn_lock = "//:yarn.lock",
+)
