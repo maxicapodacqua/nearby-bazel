@@ -1,0 +1,23 @@
+load("@io_bazel_rules_go//go:def.bzl", "go_library", "go_test")
+
+go_library(
+    name = "router",
+    srcs = [
+        "general.go",
+        "health.go",
+        "nearby.go",
+        "ping.go",
+    ],
+    importpath = "github.com/maxicapodacqua/nearby-bazel/golang/internal/router",
+    visibility = ["//golang:__subpackages__"],
+)
+
+go_test(
+    name = "router_test",
+    srcs = ["nearby_test.go"],
+    embed = [":router"],
+    deps = [
+        "@com_github_maxicapodacqua_nearby//internal/config",
+        "@com_github_maxicapodacqua_nearby//internal/database/sqlite",
+    ],
+)
