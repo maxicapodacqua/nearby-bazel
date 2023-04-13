@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "@bazel/typescript": "latest",
+    "@types/mysql": "^2.15.21",
     "@types/node": "^18.15.11",
+    "mysql": "^2.18.1",
     "typescript": "latest"
   }
 }
