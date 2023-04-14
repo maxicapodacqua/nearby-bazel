@@ -8,19 +8,20 @@ const port = 8081;
 const server = http.createServer((req: IncomingMessage, res: ServerResponse) => {
     const reqPathname = url.parse(req.url!).pathname;
 
-    if (reqPathname) {
+    if (reqPathname && router[reqPathname]) {
         const handler = router[reqPathname];
-        if (handler) {
-            res.setHeader('Content-Type', 'application/json');
-            return handler(req, res);
-        }
+        res.setHeader('Content-Type', 'application/json');
+        handler(req, res);
+    } else {
+        res.statusCode = 404;
+        res.end();
     }
 
-    res.statusCode = 404;
-    res.end();
+    console.info("INFO [%s] %d %s", req.method, res.statusCode, req.url)
+
     return;
 });
 
 server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
+    console.info(`Server running at http://${hostname}:${port}/`);
 });
