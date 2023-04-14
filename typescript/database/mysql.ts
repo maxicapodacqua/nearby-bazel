@@ -5,7 +5,7 @@ export default function connect()   {
     const conn = mysql.createConnection('mysql://root:root@localhost:3306/nearby');
     conn.connect( (err) => {
         if (err) {
-            throw err;
+            console.error(err);
         }
     });
     return conn;
