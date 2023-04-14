@@ -17,3 +17,9 @@ This project uses a MySQL database in a docker container, in order to get it sta
 docker compose up -d
 ```
 This will initialize a MySQL server in `localhost:3306` with the schema and table pre populated in database `nearby`
+
+### Documentation
+A swagger file can be generated using swag, based on the comments in the code of the golang/ version
+```shell
+swag init -g golang/cmd/nearby/main.go --ot yaml -o api/
+```
