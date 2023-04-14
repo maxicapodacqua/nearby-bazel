@@ -13,10 +13,8 @@ type NearbyDBRow = {
 const ERR_INVALID_AREA_CODE_INPUT = "invalid value for `area_code`, value must be an integer";
 const nearby: RequestListener = (req: IncomingMessage, res: ServerResponse) => {
     res.statusCode = 200;
-    const response: APIResponse<NearbyResponse> = {
-        data: {
-            area_codes: [],
-        },
+    const response: APIResponse<NearbyResponse | null> = {
+        data: null,
         error: null,
     };
     const query = url.parse(req.url!, true).query;
@@ -32,17 +30,18 @@ const nearby: RequestListener = (req: IncomingMessage, res: ServerResponse) => {
 
     conn.query(
         "SELECT nearby_area_code FROM nearby_area_codes WHERE area_code=?",
-        [512],
-        (err, results) => {
+        [query.area_code],
+        (err, results: NearbyDBRow[]) => {
             if (err) {
                 res.statusCode = 500;
                 response.error = "Something went wrong with the database";
                 res.end(JSON.stringify(response));
                 return;
             } else {
-                if (results && results.length && Array.isArray(results)) {
-                    const castedRes = results as NearbyDBRow[];
-                    response.data.area_codes = castedRes.map(value => value.nearby_area_code);
+                if (results && Array.isArray(results)) {
+                    response.data = {
+                        area_codes: results.map(value => value.nearby_area_code)
+                    };
                     res.end(JSON.stringify(response));
                     return;
                 }
