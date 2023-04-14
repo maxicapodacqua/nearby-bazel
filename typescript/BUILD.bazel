@@ -3,7 +3,9 @@ load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_project")
 
 nodejs_binary(
     name = "nearby",
-    data = [],
+    data = [
+        "@npm//mysql",
+    ],
     entry_point = ":index.js",
 )
 
@@ -18,6 +20,7 @@ ts_project(
     srcs = glob(["**/*.ts"]),
     tsconfig = "config",
     deps = [
+         "@npm//mysql",
          "@npm//@types/node",
          "@npm//@types/mysql",
     ],

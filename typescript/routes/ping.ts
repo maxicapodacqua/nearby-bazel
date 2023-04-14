@@ -5,9 +5,9 @@ type PingResponse = {
     pong: 'success',
 };
 
-const ping :RequestListener = (req, res:ServerResponse) => {
+const ping: RequestListener = (req, res: ServerResponse) => {
     res.statusCode = 200;
-    const response :APIResponse<PingResponse, null> = {
+    const response: APIResponse<PingResponse, null> = {
         data: {
             pong: "success",
         },

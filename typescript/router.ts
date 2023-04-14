@@ -1,5 +1,6 @@
 import {RequestListener} from "http";
 import ping from "./routes/ping";
+import health from "./routes/health";
 
 type Route = {
     [path: string] : RequestListener,
@@ -7,9 +8,7 @@ type Route = {
 
 export const router :Route = {
     '/ping': ping,
-    '/health': (req, res) => {
-
-    },
+    '/health': health,
     '/nearby': (req, res) => {
 
     },
