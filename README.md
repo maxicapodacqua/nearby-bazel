@@ -5,7 +5,8 @@ https://github.com/kriscfoster/multi-language-bazel-monorepo
 
 # TODOs
 - [x] Create bazel setup with gazelle
-- [ ] Create functional test (maybe run a postman collection?)
+- [x] Create functional test (maybe run a postman collection?)
+- [ ] Integrate functional test with github actions
 - [x] Set up a database to use (probably in a docker container, docker compose like)
 - [ ] Add documentation of Goal for this repo
 - [x] Migrate golang project and adapt it to new database
@@ -23,3 +24,19 @@ A swagger file can be generated using swag, based on the comments in the code of
 ```shell
 swag init -g golang/cmd/nearby/main.go --ot yaml -o api/
 ```
+
+
+## Functional tests
+The repo has a postman collection with contract validation test in `api/api.postman_collection.json`, this file was
+created manually after importing the swagger file from `api/swagger.yaml`.
+
+You can use `newman` to run tests against an API instance, make sure you override the env var `baseUrl` to point to your
+API instance.
+Example:
+```shell
+newman run --env-var baseUrl=localhost:8081 api/api.postman_collection.json
+```
+
+**IDEA: add github action to run this on PR, I can create a new docker container for each API, and integrate it into the
+docker compose file, have both APIs running and then run newman. I can use the github action matrix to run 
+tests for all APIs at the same time since all API endpoints only runs SELECT queries, it will not affect parallel executions**
