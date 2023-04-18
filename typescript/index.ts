@@ -3,7 +3,7 @@ import url from 'url';
 import {router} from "./router";
 
 const hostname = '127.0.0.1';
-const port = 8081;
+const port = 8080;
 
 const server = http.createServer((req: IncomingMessage, res: ServerResponse) => {
     const reqPathname = url.parse(req.url!).pathname;

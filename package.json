@@ -13,5 +13,8 @@
     "@types/node": "^18.15.11",
     "mysql": "^2.18.1",
     "typescript": "latest"
+  },
+  "engines" : {
+    "node" : ">=16.0.0"
   }
 }

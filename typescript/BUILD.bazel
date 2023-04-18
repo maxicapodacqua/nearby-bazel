@@ -1,12 +1,22 @@
 load("@build_bazel_rules_nodejs//:index.bzl", "nodejs_binary")
 load("@npm//@bazel/typescript:index.bzl", "ts_config", "ts_project")
+load("@io_bazel_rules_docker//nodejs:image.bzl", "nodejs_image")
+load("@io_bazel_rules_docker//container:container.bzl", "container_image")
 
 nodejs_binary(
     name = "nearby",
     data = [
+        ":nearby_lib",
         "@npm//mysql",
     ],
     entry_point = ":index.js",
+)
+
+nodejs_image(
+    name = "nearby_image",
+    binary = "nearby",
+    include_node_repo_args = False,
+    node_repository_name = "nodejs_linux_amd64",
 )
 
 ts_config(
@@ -20,8 +30,8 @@ ts_project(
     srcs = glob(["**/*.ts"]),
     tsconfig = "config",
     deps = [
-         "@npm//mysql",
-         "@npm//@types/node",
-         "@npm//@types/mysql",
+        "@npm//@types/mysql",
+        "@npm//@types/node",
+        "@npm//mysql",
     ],
 )
