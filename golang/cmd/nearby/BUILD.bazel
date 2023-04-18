@@ -23,4 +23,6 @@ go_binary(
 go_image(
     name = "nearby_image",
     binary = "nearby",
+    base = "@golang_base//image",
+    format = "Docker",
 )

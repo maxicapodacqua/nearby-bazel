@@ -88,9 +88,19 @@ load(
 
 _nodejs_image_repos()
 
+
 load(
     "@io_bazel_rules_docker//go:image.bzl",
     _go_image_repos = "repositories",
 )
 
 _go_image_repos()
+
+load("@io_bazel_rules_docker//container:pull.bzl", "container_pull")
+
+container_pull(
+    name = "golang_base",
+    registry = "index.docker.io",
+    repository = "library/golang",
+    tag = "1.20.1",
+)
