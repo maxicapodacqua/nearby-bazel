@@ -1,0 +1,996 @@
+{
+	"info": {
+		"_postman_id": "93ac76bf-2f34-4b50-b21b-8fb97c4ecf93",
+		"name": "Nearby API",
+		"description": "Nearby API, to search nearby phone area codes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17450572"
+	},
+	"item": [
+		{
+			"name": "GET Nearby",
+			"item": [
+				{
+					"name": "Returns empty list with invalid area code",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Body is correct\", function () {",
+									"    const expec = JSON.parse(`{",
+									"        \"data\": {",
+									"            \"area_codes\": []",
+									"        },",
+									"        \"error\": null",
+									"    }`);",
+									"    pm.response.to.have.body(JSON.stringify(expec));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/nearby?area_code=000",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"nearby"
+							],
+							"query": [
+								{
+									"key": "area_code",
+									"value": "000",
+									"description": "(Required) Area code to search for nearby values"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List of nearby area codes",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/nearby?area_code=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"nearby"
+									],
+									"query": [
+										{
+											"key": "area_code",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": {\n    \"area_codes\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"error\": \"<string>\"\n}"
+						},
+						{
+							"name": "Invalid area code sent",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/nearby?area_code=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"nearby"
+									],
+									"query": [
+										{
+											"key": "area_code",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"<string>\",\n  \"error\": \"<string>\"\n}"
+						},
+						{
+							"name": "Server error, likely database is down",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/nearby?area_code=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"nearby"
+									],
+									"query": [
+										{
+											"key": "area_code",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"<string>\",\n  \"error\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Returns error on empty area code",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(422);",
+									"});",
+									"",
+									"pm.test(\"Body is correct\", function () {",
+									"    const expec = JSON.parse(`{",
+									"        \"data\": null,",
+									"        \"error\": \"invalid value for \\`area_code\\`, value must be an integer\"",
+									"    }`);",
+									"    pm.response.to.have.body(JSON.stringify(expec));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/nearby?area_code=",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"nearby"
+							],
+							"query": [
+								{
+									"key": "area_code",
+									"value": "",
+									"description": "(Required) Area code to search for nearby values"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List of nearby area codes",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/nearby?area_code=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"nearby"
+									],
+									"query": [
+										{
+											"key": "area_code",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": {\n    \"area_codes\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"error\": \"<string>\"\n}"
+						},
+						{
+							"name": "Invalid area code sent",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/nearby?area_code=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"nearby"
+									],
+									"query": [
+										{
+											"key": "area_code",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"<string>\",\n  \"error\": \"<string>\"\n}"
+						},
+						{
+							"name": "Server error, likely database is down",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/nearby?area_code=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"nearby"
+									],
+									"query": [
+										{
+											"key": "area_code",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"<string>\",\n  \"error\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Returns error on non numeric area code",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(422);",
+									"});",
+									"",
+									"pm.test(\"Body is correct\", function () {",
+									"    const expec = JSON.parse(`{",
+									"        \"data\": null,",
+									"        \"error\": \"invalid value for \\`area_code\\`, value must be an integer\"",
+									"    }`);",
+									"    pm.response.to.have.body(JSON.stringify(expec));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/nearby?area_code=a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"nearby"
+							],
+							"query": [
+								{
+									"key": "area_code",
+									"value": "a",
+									"description": "(Required) Area code to search for nearby values"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List of nearby area codes",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/nearby?area_code=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"nearby"
+									],
+									"query": [
+										{
+											"key": "area_code",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": {\n    \"area_codes\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"error\": \"<string>\"\n}"
+						},
+						{
+							"name": "Invalid area code sent",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/nearby?area_code=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"nearby"
+									],
+									"query": [
+										{
+											"key": "area_code",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"<string>\",\n  \"error\": \"<string>\"\n}"
+						},
+						{
+							"name": "Server error, likely database is down",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/nearby?area_code=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"nearby"
+									],
+									"query": [
+										{
+											"key": "area_code",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"<string>\",\n  \"error\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Returns a list of nearby area codes based on the input",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Body is correct\", function () {",
+									"    const expec = JSON.parse(`{",
+									"        \"data\": {",
+									"            \"area_codes\": [",
+									"                254,",
+									"                325,",
+									"                830,",
+									"                979,",
+									"                361",
+									"            ]",
+									"        },",
+									"        \"error\": null",
+									"    }`);",
+									"    pm.response.to.have.body(JSON.stringify(expec));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/nearby?area_code=512",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"nearby"
+							],
+							"query": [
+								{
+									"key": "area_code",
+									"value": "512",
+									"description": "(Required) Area code to search for nearby values"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List of nearby area codes",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/nearby?area_code=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"nearby"
+									],
+									"query": [
+										{
+											"key": "area_code",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": {\n    \"area_codes\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"error\": \"<string>\"\n}"
+						},
+						{
+							"name": "Invalid area code sent",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/nearby?area_code=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"nearby"
+									],
+									"query": [
+										{
+											"key": "area_code",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"<string>\",\n  \"error\": \"<string>\"\n}"
+						},
+						{
+							"name": "Server error, likely database is down",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/nearby?area_code=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"nearby"
+									],
+									"query": [
+										{
+											"key": "area_code",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"<string>\",\n  \"error\": \"<string>\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Returns error on unset area code",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status test\", function () {",
+									"    pm.response.to.have.status(422);",
+									"});",
+									"",
+									"pm.test(\"Body is correct\", function () {",
+									"    const expec = JSON.parse(`{",
+									"        \"data\": null,",
+									"        \"error\": \"invalid value for \\`area_code\\`, value must be an integer\"",
+									"    }`);",
+									"    pm.response.to.have.body(JSON.stringify(expec));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/nearby",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"nearby"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "List of nearby area codes",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/nearby?area_code=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"nearby"
+									],
+									"query": [
+										{
+											"key": "area_code",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": {\n    \"area_codes\": [\n      \"<integer>\",\n      \"<integer>\"\n    ]\n  },\n  \"error\": \"<string>\"\n}"
+						},
+						{
+							"name": "Invalid area code sent",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/nearby?area_code=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"nearby"
+									],
+									"query": [
+										{
+											"key": "area_code",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+							"code": 422,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"<string>\",\n  \"error\": \"<string>\"\n}"
+						},
+						{
+							"name": "Server error, likely database is down",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/nearby?area_code=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"nearby"
+									],
+									"query": [
+										{
+											"key": "area_code",
+											"value": "<string>"
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"data\": \"<string>\",\n  \"error\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Checks if the API is healthy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"    const expec = JSON.parse(`{",
+							"        \"data\": {",
+							"            \"database\": \"healthy\"",
+							"        },",
+							"        \"error\": null",
+							"    }`);",
+							"    pm.response.to.have.body(JSON.stringify(expec));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/health",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "API status",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"data\": {\n    \"database\": \"<string>\"\n  },\n  \"error\": \"<string>\"\n}"
+				},
+				{
+					"name": "Server error, likely database is down",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"health"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"data\": {\n    \"database\": \"<string>\"\n  },\n  \"error\": \"<string>\"\n}"
+				}
+			]
+		},
+		{
+			"name": "Returns success as long as the web API is running",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"    const expec = JSON.parse(`{",
+							"        \"data\": {",
+							"            \"pong\": \"success\"",
+							"        },",
+							"        \"error\": null",
+							"    }`);",
+							"    pm.response.to.have.body(JSON.stringify(expec));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/ping",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Pong if the API is running",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/ping",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ping"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"data\": {\n    \"pong\": \"<string>\"\n  },\n  \"error\": \"<string>\"\n}"
+				},
+				{
+					"name": "Server error",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/ping",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"ping"
+							]
+						}
+					},
+					"status": "Internal Server Error",
+					"code": 500,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n  \"data\": \"<string>\",\n  \"error\": \"<string>\"\n}"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "localhost:8080",
+			"type": "string"
+		}
+	]
+}
