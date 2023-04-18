@@ -25,6 +25,18 @@ A swagger file can be generated using swag, based on the comments in the code of
 swag init -g golang/cmd/nearby/main.go --ot yaml -o api/
 ```
 
+## Docker images
+### Golang
+To create the image run:
+```shell
+bazel run  //golang/cmd/nearby:nearby_image -- --norun
+```
+This will create a new docker image with the name `bazel/golang/cmd/nearby:nearby_image`,
+you can then run the image:
+```shell
+docker run -p 8080:8080 --rm bazel/golang/cmd/nearby:nearby_image
+```
+
 
 ## Functional tests
 The repo has a postman collection with contract validation test in `api/api.postman_collection.json`, this file was

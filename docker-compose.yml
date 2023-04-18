@@ -9,9 +9,22 @@ services:
     volumes:
       - data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - common-net
     environment:
       MYSQL_DATABASE: nearby
       MYSQL_ROOT_PASSWORD: "root"
+  golang:
+    # Create image with bazel with: `bazel run  //golang/cmd/nearby:nearby_image -- --norun`
+    image: bazel/golang/cmd/nearby:nearby_image
+    ports:
+      - "8080:8080"
+    networks:
+      - common-net
+    environment:
+      SQL_DNS: "root:root@tcp(db:3306)/nearby"
 volumes:
   data:
     driver: local
+networks:
+  common-net: {}
